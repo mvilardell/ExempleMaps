@@ -36,8 +36,13 @@
 				
 				function Enviamos(data){       
 					alert(data+"Reporte enviado");
-					var url = "index.html";
-					$.mobile.changePage( url, {transition: "none", reloadPage:true} );
+					
+					$.mobile.changePage( window.location.href,{
+										allowSamePageTransition : true,
+										transition              : 'none',
+										showLoadMsg             : false,
+										reloadPage              : true
+									   } );
 				}
 			
 			});
