@@ -36,7 +36,8 @@
 				
 				function Enviamos(data){       
 					alert(data+"Reporte enviado");
-					$.mobile.changePage( "#page3", { transition: "slideup", role:"dialog"});
+					var url = "index.html";
+					$.mobile.changePage( url, {transition: "none", reloadPage:true} );
 				}
 			
 			});
@@ -78,6 +79,7 @@
                       <input type="text" disabled="disabled" name="LongX" id="LongX" value="" />
                </div>
                <button type="button" data-theme="a" id="guardardatos">Enviar</button>
+			   <button type="button" onclick="window.location.href='index.html'">Torna a l'inici</button>
             <!--------FIN FORMULARIO------>
 
             <div data-role="footer" data-position="fixed">
