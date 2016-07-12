@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Geolocalizaci&oacute;n</title>
+        <meta HTTP-EQUIV="Content-Type" content="text/html; charset=iso-8859-1" />
+        <script type="text/javascript" src="cordova.js"></script>
+        <link rel="stylesheet" href="JQ/jquery.mobile-1.4.2.min.css" />
+		<script src="JQ/jquery-2.1.1.min.js"></script>
+		<script src="JQ/jquery.mobile-1.4.2.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script src="JS/GoogleMaps.js"></script>
+        <link rel="stylesheet" href="CSS/index.css" />
+        <script>
+		$(function() {
+			$("#guardardatos").click(function() {
+				var fNombre = $("#Nombre").val();
+   				var fDescripcion = $("#Descripcion").val();
+    			var fLatY = $("#LatY").val();
+				var fLongX = $("#LongX").val();
+				
+				$("#Nombre").val(" ");
+    			$("#Descripcion").val(" ");
+    			$("#LatY").val(" ");
+				$("#LongX").val(" ");
+				
+				 $.ajax({type: "POST", 
+						url: "http://localhost/agregar.php",
+                      	data: ({Nombre: fNombre, Descripcion: fDescripcion, LatY: fLatY, LongX: fLongX}),
+                      cache: false,
+                      dataType: "text",
+                      success: Enviamos
+                    });
+				
+				});
+				
+				function Enviamos(data){       
+					alert(data+"Reporte enviado");
+					$.mobile.changePage( "#page3", { transition: "slideup", role:"dialog"});
+				}
+			
+			});
+		</script>
+
+    </head>
+
+    <body>
+    
+   	<div data-role="page" id="paginaMapa" data-url="map-page">        	
+        	<div data-role="header">
+            	<h1>Tu posición actual</h1>
+            </div>
+            
+            	<div id="map-canvas"></div>
+                
+            <a href="#page2" id="manda" class="miBoton posicionBoton" ></a>
+        </div><!---FIN PAGINA MAPA--->
+    	
+        <div data-role="page" id="page2">
+        	<div data-role="header">
+            	<h1>Mi formulario</h1>
+            </div>
+            <!--------INICIA FORMULARIO------>
+            <div data-role="fieldcontain">
+                      <label for="Nombre">Nombre:</label>
+                      <input type="text" name="Nombre" id="Nombre" value=""  />
+               </div>
+               <div data-role="fieldcontain">
+                      <label for="Descripcion">Descripcion:</label>
+                     <textarea cols="40" rows="8"  name="Descripcion" id="Descripcion" value=""  /></textarea>
+               </div>
+               <div data-role="fieldcontain">
+                      <label for="LatY">Latitud:</label>
+                      <input type="text" disabled="disabled" name="LatY" id="LatY" value=""  />
+               </div>
+               <div data-role="fieldcontain">
+                      <label for="LongX">Longitud:</label>
+                      <input type="text" disabled="disabled" name="LongX" id="LongX" value="" />
+               </div>
+               <button type="button" data-theme="a" id="guardardatos">Enviar</button>
+            <!--------FIN FORMULARIO------>
+
+            <div data-role="footer" data-position="fixed">
+            	<h1>Pie de pagina</h1>
+               
+            </div>
+            
+            <div data-role="page" id="page3">
+            	Tu reporte se ha enviado
+            </div>
+    
+        </div>
+    </body>
+</html>
